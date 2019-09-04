@@ -14,10 +14,10 @@ var requestHandler = function(request, response) {
     is sent to the '/listings' path. Otherwise, it should send a 404 error. 
 
   */
-  if (request.method === "GET" && parsedUrl.path === "/listings") {
-    response.writeHead(200, {'Content-Type': 'text/plain'});
+  if (request.method === "GET" && request.url === "/listings") {
+    response.writeHead(200, {'Content-Type': 'application/json'});
     response.write(listingData);
-    //console.log('200');
+    console.log('200');
     //response.end();
   } else {
     response.writeHead(404, {'Content-Type': 'text/plain'});
@@ -34,7 +34,7 @@ fs.readFile('listings.json', 'utf8', function(err, data) {
   if(err) { throw err };
 
   //Save the sate in the listingData variable already defined
-  listingData = JSON.parse(data);
+  listingData = data;
   //console.log(listingData);
   //Creates the server
   var server = http.createServer(requestHandler);
